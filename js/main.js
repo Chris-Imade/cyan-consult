@@ -53,12 +53,78 @@ $(document).ready(function () {
     }
   });
 
-  // ── FORM SUBMIT FEEDBACK ─────────────────────
+  // ── FORM SUBMIT WITH VALIDATION ──────────────
   $('.form-submit').on('click', function () {
     var $btn = $(this);
-    $btn.text("✓ Enquiry Sent — We'll be in touch within 48 hours")
-        .css('background', '#065C55')
-        .prop('disabled', true);
+    var $form = $btn.closest('.contact-form-area');
+    var valid = true;
+
+    // Clear previous error states
+    $form.find('.form-error').remove();
+    $form.find('input, select, textarea').css('border-color', '');
+
+    // Validate all required fields
+    $form.find('input, textarea').each(function () {
+      if ($.trim($(this).val()) === '') {
+        valid = false;
+        $(this).css('border-color', '#c0392b');
+        if (!$(this).next('.form-error').length) {
+          $(this).after('<span class="form-error">This field is required</span>');
+        }
+      }
+    });
+
+    // Validate select
+    $form.find('select').each(function () {
+      if ($(this).val() === '') {
+        valid = false;
+        $(this).css('border-color', '#c0392b');
+        if (!$(this).next('.form-error').length) {
+          $(this).after('<span class="form-error">Please select an option</span>');
+        }
+      }
+    });
+
+    if (!valid) {
+      // Shake the button briefly
+      $btn.addClass('shake');
+      setTimeout(function () { $btn.removeClass('shake'); }, 500);
+      return;
+    }
+
+    // -- Simulate submission --
+    var originalText = $btn.text();
+    $btn.text('Sending…').prop('disabled', true).css('opacity', '0.7');
+
+    setTimeout(function () {
+      // Hide form fields with a fade
+      $form.find('.form-row, .form-group, .form-submit').fadeOut(400, function () {
+        // Show success message once all elements have faded
+        if ($form.find('.form-success').length === 0) {
+          $form.append(
+            '<div class="form-success">' +
+              '<div class="form-success-icon">✓</div>' +
+              '<h3 class="form-success-title">Enquiry Sent Successfully</h3>' +
+              '<p class="form-success-text">Thank you for reaching out. A member of our team will respond within 48 business hours.</p>' +
+              '<button class="form-reset-btn">Send Another Enquiry</button>' +
+            '</div>'
+          );
+          $form.find('.form-success').hide().fadeIn(500);
+
+          // Reset handler
+          $form.find('.form-reset-btn').on('click', function () {
+            $form.find('.form-success').fadeOut(300, function () {
+              $(this).remove();
+              $form.find('input').val('');
+              $form.find('textarea').val('');
+              $form.find('select').val('');
+              $form.find('.form-row, .form-group, .form-submit').fadeIn(400);
+              $btn.text(originalText).prop('disabled', false).css('opacity', '1');
+            });
+          });
+        }
+      });
+    }, 1200);
   });
 
   // ── JQUERY SCROLL-TRIGGERED ANIMATIONS ───────

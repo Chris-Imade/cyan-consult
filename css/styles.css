@@ -861,6 +861,77 @@ section { padding: 120px 60px; }
 }
 .form-submit:hover { background: var(--teal-deep); }
 
+/* ── FORM VALIDATION & SUCCESS ──────────────── */
+.form-error {
+  display: block;
+  font-size: 0.72rem;
+  color: #c0392b;
+  margin-top: 6px;
+  letter-spacing: 0.02em;
+}
+.form-success {
+  text-align: center;
+  padding: 60px 20px;
+}
+.form-success-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: var(--teal);
+  color: var(--white);
+  font-size: 1.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 24px;
+  animation: scaleIn 0.5s ease;
+}
+.form-success-title {
+  font-family: var(--ff-display);
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 12px;
+}
+.form-success-text {
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: var(--muted);
+  max-width: 400px;
+  margin: 0 auto 32px;
+}
+.form-reset-btn {
+  background: none;
+  border: 1px solid var(--line);
+  color: var(--teal);
+  padding: 12px 28px;
+  font-family: var(--ff-body);
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+.form-reset-btn:hover {
+  background: var(--teal);
+  color: var(--white);
+}
+@keyframes scaleIn {
+  from { transform: scale(0); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+.shake {
+  animation: shakeX 0.45s ease;
+}
+@keyframes shakeX {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-8px); }
+  40% { transform: translateX(8px); }
+  60% { transform: translateX(-6px); }
+  80% { transform: translateX(6px); }
+}
+
 /* ── FINAL CTA ──────────────────────────────── */
 #cta-final {
   background: var(--ink);
