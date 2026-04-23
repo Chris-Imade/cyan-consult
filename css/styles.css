@@ -785,8 +785,13 @@ section { padding: 120px 60px; }
 .contact-intro p {
   font-size: 1rem; line-height: 1.85; color: var(--muted); margin-bottom: 20px;
 }
-.contact-cta {
+.contact-cta-group {
   margin: 48px 0 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 16px;
 }
 .btn-large {
   padding: 20px 48px;
